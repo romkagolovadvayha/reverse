@@ -11,7 +11,12 @@ class StringHelper
         }
 
         foreach ($matches[0] as $word) {
-            $nWord = self::mbStrRev($word);
+            $nWord = mb_strtolower(self::mbStrRev($word));
+            $firstChar = mb_substr($nWord, 0, 1);
+            if (mb_strtolower($firstChar) !== mb_strtoupper($firstChar)) {
+//            if (preg_match('/[А-ЯЁ]/', $firstChar) !== false) {
+                $nWord = mb_strtoupper($firstChar) . mb_substr($nWord, 1);
+            }
             $str = str_replace($word, $nWord, $str);
         }
 
